@@ -23,7 +23,7 @@ def jacobi2(a,b,tol):
 
 def main():
     n = 100
-    A = sp.diags([-1, 3, -1], [-1, 0, 1], [n,n]).toarray()
+    A = sp.diags([-1, 3, -1], [-1, 0, 1], shape=(n,n)).toarray()
     b = np.ones([n,1]);b[0]=2;b[n-1]=2;
     k = 36
     result = jacobi(A,b,k)
