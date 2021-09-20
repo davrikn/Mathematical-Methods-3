@@ -1,13 +1,16 @@
 import numpy as np
 import scipy.sparse as sp
 
-def CGM(a, b, x0, n):
+def CGM(a, b, x0, n, tol):
     d = []; r = []; x = []; alpha = []; beta = [];
     x.append(x0)
     d.append(b-a@x0)
     r.append(b-a@x0)
     for k in range(n):
-        if (np.linalg.norm(r[k]) == 0): return x[k]
+        print(str(k))
+        if (np.linalg.norm(r[k]) < tol):
+            print("Iterations: " + str(k))
+            return x[k]
         alpha.append(np.dot(np.transpose(r[k]),r[k])/(d[k].transpose()@a@d[k]))
         x.append(x[k]+np.dot(alpha[k],d[k]))
         r.append(r[k]-np.dot(alpha[k],np.dot(a,d[k])))
@@ -18,6 +21,7 @@ def CGM(a, b, x0, n):
 def main():
     n = [100,1000,10000]
 
+    tol = 10**-8
     #Create 100x100 sparse matrix with 3 on the diagonal and -1 over and under
     #Also create [1,1.....1,1] initial guess
     #And b vector [2.5, 1.5, 1.5...1.5, 1.0, 1.0, 1.5...1.5,2.5]
@@ -43,15 +47,15 @@ def main():
     b3[(int(n[2]/2))] = 1.0;
     b3[int((n[2]/2-1))] = 1.0
     print("Start a1")
-    print(CGM(a1,b1,x1, n[0]))
+    print(CGM(a1,b1,x1, n[0],tol))
     print("a1 done")
 
     print("Start a2")
-    print(CGM(a2,b2,x2, n[1]))
+    print(CGM(a2,b2,x2, n[1], tol))
     print("a2 done")
 
     print("Start a3")
-    print(CGM(a3,b3,x3, n[2]))
+    print(CGM(a3,b3,x3, n[2], tol))
     print("a3 done")
 
 
