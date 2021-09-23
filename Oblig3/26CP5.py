@@ -21,7 +21,7 @@ def CGM(a, b, x0, n, tol):
 def main():
     n = [100,1000,10000]
 
-    tol = 10**-8
+    tol = np.finfo(float).eps
     #Create 100x100 sparse matrix with 3 on the diagonal and -1 over and under
     #Also create [1,1.....1,1] initial guess
     #And b vector [2.5, 1.5, 1.5...1.5, 1.0, 1.0, 1.5...1.5,2.5]
