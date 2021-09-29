@@ -87,9 +87,10 @@ def idk(n, xMax):
     step = 0
     while i < xMax:
         if step == n: break
+        numericalEstimate[step] = numericalEstimate[step].__abs__()
         x_range.append(i)
-        exactSolution.append(y_exact_0(i))
-        error.append(numericalEstimate[step] - exactSolution[step])
+        exactSolution.append(y_exact_0(i).__abs__())
+        error.append((numericalEstimate[step] - exactSolution[step]).__abs__())
         i += h
         step += 1
     #print(numericalEstimate)
@@ -98,21 +99,28 @@ def idk(n, xMax):
     pyplot.plot(x_range, exactSolution)
     pyplot.plot(x_range, error)
     pyplot.legend(["Estimate", "Exact", "Error"])
+    pyplot.loglog()
     pyplot.show()
     return numericalEstimate
 
 def oppg3():
     xmax = 2
     n = []
+    ret = [["          y          ", "       estimate      ", "       error     "]]
     for i in range(1,10):
         n.append(10*2**i)
 
     for i in range(9):
         ans = idk(n[i],xmax)
         err = ans[-1] - y_exact_0(2)
+        ret.append([y_exact_0(2), ans[-1], err])
         #print(f"Error = {err}")
 
+    for i in range(9):
+        print("--------------------------------------------------------------")
+        print(str(ret[i][0]) + "|" + str(ret[i][1]) + "|" +str(ret[i][2]))
+    #print(ret)
 
 if __name__ == "__main__":
-    oppg2()
+    #oppg2()
     oppg3()
