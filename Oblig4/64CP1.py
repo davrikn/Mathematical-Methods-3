@@ -1,8 +1,8 @@
 import numpy as np
 
-def ydot(t,w):
-    y = [lambda t, w : (t**2)*w]
-    w1 = np.array([y[0](t,w[0])])
+def ydot(w):
+    y = [lambda w : (w[0]**2)*w[1]]
+    w1 = np.array([y[0](w)])
     return w1
 
 def midpoint(y0, h, ranges):
@@ -15,11 +15,23 @@ def midpoint(y0, h, ranges):
         t += h
     print(w)
 
+
+def midtpunkt_metode(f,y_init,h,n):
+   y = []
+   y.append(y_init)
+   for i in range(n):
+      s1 = f(y[i])
+      s2 = f(y[i]+0.5*h*s1)
+      y.append(y[i]+h*s2)
+   return y
+
 def Main():
     h = 0.1
-    range = [0,1]
-    y0 = [1]
-    midpoint(y0, h, range)
+    ranges = [0,1]
+    n = int((ranges[1]-ranges[0])/h)
+    y0 = 1
+    midtpunkt_metode(ydot, y0, h, n)
+    #midpoint(y0, h, ranges)
 
 
 if __name__ == "__main__":
