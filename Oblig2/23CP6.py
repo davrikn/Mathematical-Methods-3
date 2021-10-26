@@ -12,7 +12,7 @@ def gaussian(n, a, x):
     for i in range(n-2, -1, -1):
         x[i] = a[i][n]
         for j in range(i+1,n):
-            x[i] = x[i] -a[i][j]*x[j]
+            x[i] = x[i]-a[i][j]*x[j]
         x[i] = x[i]/a[i][i]
     return x
  #   return back_sub(n,a,b,x)
