@@ -1,6 +1,6 @@
 import numpy as np
 
-def classicGS(A, m, n):
+def modGS(A, m, n):
     r = np.zeros(shape=[m,n])
     q = np.zeros(shape=[m, m])
     for j in range(n):
@@ -46,13 +46,13 @@ if __name__ == "__main__":
     A3 = [[2,1,2], [1,-1,1]]
     n3 = 2
     m3 = 3
-    A4 = [[4,0,3], [8,2,6], [1,-2,7]]
+    A4 = [[2,-2,2], [2,0,2], [8,-4,8]]
     n4 = 3
     m4 = 3
 
     #classicGS(A1,m1, n1)
     #classicGS(A2,m2, n2)
     #classicGS(A3,m3, n3)
-    classicGS(A4,m4, n4)
+    modGS(A4,m4, n4)
 
 

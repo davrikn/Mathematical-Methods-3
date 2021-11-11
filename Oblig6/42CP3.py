@@ -25,11 +25,16 @@ def fitdata_exponential(data):
         [1, (data[4][0]-1960)]
     ])
     b = np.array([np.log(data[0][-1]), np.log(data[1][-1]), np.log(data[3][-1]), np.log(data[4][-1])])
+    bnl = np.array([data[0][-1], data[1][-1], data[3][-1], data[4][-1]])
     x = np.linalg.solve(A.T@A, A.T@b)
     x[0] = np.e**x[0]
     print(x)
-    r = b-A@x
-    RMSE = np.linalg.norm(r)/(4**(1/2))
+    r = []
+    print(b.shape)
+    for i in range(b.shape[0]):
+        r.append(bnl[i] - A[i][0]*x[0]*np.e**(x[1]*A[i][1]))
+    print(r)
+    RMSE = np.linalg.norm(r)/np.sqrt(4)
     print("RMSE")
     print(RMSE)
     print("1980 estimate")
